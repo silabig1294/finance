@@ -1,13 +1,13 @@
 <template lang="html">
-    <div id="DepositWithdraw">
+    <div class="DepositWithdraw">
     <!-- <v-app> -->
     <!-- <div class=""> -->
       <!-- <h3>Welcome,{{ user.first_name_th }} </h3> -->
-      <!-- <Nav></Nav> -->
-      <TestDeposit></TestDeposit> 
+      <Nav></Nav>
+      <TestDeposit class="container mt-16"></TestDeposit> 
       <!-- <router-link to="/">Go to Home</router-link> -->
       <!-- <router-link to="/transaction">Go to Transaction</router-link> -->
-      <Nav></Nav>
+      <!-- <Nav></Nav> -->
       <!-- <Nav></Nav> -->
       <!-- <HeaderV1></HeaderV1> -->
       <!-- <TestDeposit></TestDeposit>  -->
@@ -52,3 +52,12 @@ import Nav from '../components/Nav.vue';
     }
   }
 </script>
+
+
+<style scoped>
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

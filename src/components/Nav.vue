@@ -1,6 +1,82 @@
 <template>
-  
-    <v-app dark class= "mb-1">
+  <!-- <div></div> -->
+    <div id="nav">
+    <v-navigation-drawer
+              v-model="drawer"
+              :mini-variant="mini"
+              absolute
+              dark
+              temporary
+            >
+            <v-list>
+                <v-list-item v-if="mini" @click.stop="mini = !mini">
+                  <v-list-item-action>
+                    <v-icon>mdi-chevron-right</v-icon>
+                  </v-list-item-action>
+                </v-list-item>
+
+                <v-list-item avatar>
+                  <v-list-item-avatar>
+                    <img src="../assets/big.jpg">
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-tile-title>Sila siangchin</v-list-tile-title>
+                  </v-list-item-content>
+
+                  <v-list-item-action>
+                    <v-btn icon @click.stop="mini = !mini">
+                      <v-icon>mdi-chevron-left</v-icon>
+                    </v-btn>
+                  </v-list-item-action>
+                </v-list-item>
+              </v-list>
+    <v-divider></v-divider>
+    <v-list>
+      <v-list-item
+            v-for="(item, i) in items"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer> 
+    
+    
+    
+    
+        
+         <v-toolbar dark pb-4 color="primary">
+          
+             
+             <v-btn
+              icon
+              dark
+              @click.stop="drawer = !drawer"
+            >
+              <v-icon>mdi-menu</v-icon>
+            </v-btn>
+            <v-toolbar-title class="white--text">Finance.com</v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            
+            <v-btn text @click="handleClick">
+              <v-icon>mdi-logout</v-icon>
+              <span>Logout</span> 
+            </v-btn>
+
+          </v-toolbar>
+        </div>
+    <!-- <v-app dark class= "mb-1">
       <v-navigation-drawer
         v-model="drawer"
         :mini-variant="miniVariant"
@@ -26,17 +102,9 @@
       </v-navigation-drawer>
       <v-app-bar fixed  app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-        <!-- <div> -->
         <v-btn icon @click.stop="miniVariant = !miniVariant">
           <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
         </v-btn>
-        <!-- </div> -->
-        <!-- <v-btn icon @click.stop="clipped = !clipped">
-          <v-icon>mdi-application</v-icon>
-        </v-btn> -->
-        <!-- <v-btn icon @click.stop="fixed = !fixed">
-          <v-icon>mdi-minus</v-icon>
-        </v-btn> -->
         <div class="mt-5 mr-7">
         <v-switch 
           v-model="$vuetify.theme.dark"
@@ -45,52 +113,38 @@
           on-icon="mdi-theme-light-dark"
         ></v-switch>
         </div>
-        <!-- <div class="d-flex align-center">
-        <v-img
-          alt="Logo"
-          class=""
-          contain
-          src="./assets/Finance.png"
-          transition="scale-transition"
-          width="20"
-        />
-
-        </div> -->
         <v-toolbar-title>{{ title }} </v-toolbar-title>
         <v-spacer />
-        <!-- <v-btn
+        <v-btn
         text
-        @click="logout"
+        @click="handleClick"
         class="hidden-sm-and-down"
       > -->
-        <v-icon>mdi-logout</v-icon>
+        <!-- <v-icon>mdi-logout</v-icon> -->
 
-        <span class="mr-2"><a href="/" @click="handleClick">&nbsp;Logout</a></span>  
+        <!-- <span class="mr-2"><a href="/" @click="handleClick">Logout</a></span>   -->
         <!-- javascript:void(0) -->
         <!-- @click="logout" -->
         <!-- &nbsp; เว้นบรรทัด  -->
-      <!-- </v-btn> -->
-        <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer"> -->
-          <!-- <v-icon>mdi-menu</v-icon> -->
-        <!-- </v-btn> -->
+      <!-- </v-btn>
+
       </v-app-bar>
 
-    </v-app>
+    </v-app> -->
 
 </template>
 
 <script>
-// import { Router } from 'express';
-// import { link } from 'fs';
 
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   name: 'Nav',
   data() {
     return {
-      // clipped: false,
-      drawer: false,
-      fixed: false,
+      rail: true,
+      drawer: null, 
+      mini: false,
+      right: null , 
       items: [
         {
           icon: 'mdi-bank-transfer',
@@ -103,10 +157,6 @@ export default {
           to: '/transaction',
         },
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Finance.Com',
     }
   },
   method:{
@@ -114,16 +164,30 @@ export default {
       localStorage.removeItem('token');
       this.$router.push('/')
     },
-    logout(event) {
+    toggle (index) {
+        const i = this.selected.indexOf(index)
+
+        if (i > -1) {
+          this.selected.splice(i, 1)
+        } else {
+          this.selected.push(index)
+        }
+      }
+    // watch: {
+    //   group () {
+    //     this.drawer = false
+    //   },
+    // },
+    // logout(event) {
       // <router-link></router-link>
 
       // <router-link to="/home" active-class="active"></router-link>
       // <a href="#" ></a>
-         event.preventDefault() 
-         axios.delete('http://127.0.0.1:8050/api/v1/user/logout')
-         .then(response => response.text())
-         .then(() => location.reload()) 
-         .catch(err => alert(err))
+        //  event.preventDefault() 
+        //  axios.delete('http://127.0.0.1:8050/api/v1/user/logout')
+        //  .then(response => response.text())
+        //  .then(() => location.reload()) 
+        //  .catch(err => alert(err))
          // .then(response => {
           // const token = response.data.token;
           // const decoded = jwt_decode(token);
@@ -147,7 +211,9 @@ export default {
     //         alert("error")
     //       });
     // }
-}
+// }
 }
 }
 </script>
+
+
