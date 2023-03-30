@@ -140,6 +140,7 @@ export default {
                 console.log(error);
             });
         },
+        // props: ['user'],
         confirm(){
           FinanceDataService.update(this.editedItem.item.id,{
             time: this.editedItem.item.time,

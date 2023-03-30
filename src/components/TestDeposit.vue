@@ -49,7 +49,7 @@ export default {
             time: "",
             data: null,
             message:'',
-            token: 'H8wHXPmv1oxKDjvUcA7VpAbdjpBpLAbIPilKhrw1chh'
+            // token: 'H8wHXPmv1oxKDjvUcA7VpAbdjpBpLAbIPilKhrw1chh'
         }  
     },
     // computed : {
@@ -60,15 +60,15 @@ export default {
     //     return `https://notify-bot.line.me/oauth/authorize?response_type=code&client_id=${clientId}&redirect_uri=${engine}/line/redirect&scope=notify&state=${username}`
     //     }
     // },
-    // created() {
+    created() {
     // Connect to the WebSocket server
-      // this.socket = new WebSocket('ws://localhost:4000');
+      this.socket = new WebSocket('ws://localhost:4000');
     // Listen for messages from the server
     // this.socket.addEventListener('message', event => {
     //   const message = JSON.parse(event.data);
     //   this.messages.push(message);
     // });
-    // },
+    },
     // beforeDestroy() {
     // Close the WebSocket connection
     // this.socket.close();
@@ -169,17 +169,17 @@ export default {
               }).then(res => {
                 console.log(res.data.data)
                 alert("ฝากเงินสำเร็จ")
-                // const message = { 
-                //  id: this.id,
-                //  time: this.time, // use module date
-                //  amount: res.data.amount,
-                //  status: "ฝาก",
-                //  mail: "silabig1442@gmail.com"}
-                //  this.socket.send(JSON.stringify(message));
+                const message = { 
+                 id: this.id,
+                 time: this.time, // use module date
+                 amount: res.data.amount,
+                 status: "ฝาก",
+                 mail: "silabig1442@gmail.com"}
+                 this.socket.send(JSON.stringify(message));
                 // Clear the input field
-                // this.newMessage = '';
-                // this.socket.close();
-                // window.location.reload();
+                this.newMessage = '';
+                this.socket.close();
+                window.location.reload();
                 window.location.reload();
                 })
                 .catch(error => {
@@ -212,16 +212,16 @@ export default {
               }).then(res =>{
                 alert("ถอนเงินสำเร็จ")
                 console.log(res.data)
-                // const message = { 
-                //  id: this.id,
-                //  time: this.time, // use module date
-                //  amount: res.data.amount,
-                //  status: "ถอน",
-                //  mail: "silabig1442@gmail.com"}
-                //  this.socket.send(JSON.stringify(message));
+                const message = { 
+                 id: this.id,
+                 time: this.time, // use module date
+                 amount: res.data.amount,
+                 status: "ถอน",
+                 mail: "silabig1442@gmail.com"}
+                 this.socket.send(JSON.stringify(message));
                 // Clear the input field
-                // this.newMessage = ''; //1
-                // this.socket.close();
+                this.newMessage = ''; //1
+                this.socket.close();
                 window.location.reload(); //1
               })
               .catch(error => {

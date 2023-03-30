@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import DepositWithdraw from '../views/DepositWithdraw.vue'
 import Transaction from '../views/Transaction.vue'
+import Personal from '../views/Personal.vue'
 
 
 Vue.use(VueRouter)
@@ -23,6 +24,11 @@ const routes = [
     name: 'Transaction',
     component: Transaction
   },
+  {
+    path: '/personal',
+    name: 'Personal',
+    component: Personal
+  }
 
 ]
 

@@ -55,8 +55,6 @@
     
         
          <v-toolbar dark pb-4 color="primary">
-          
-             
              <v-btn
               icon
               dark
@@ -69,11 +67,11 @@
             <v-spacer></v-spacer>
 
             
-            <v-btn text @click="handleClick">
+            <v-btn text> 
+              <!-- ทำชั่วคราวก่อน -->
               <v-icon>mdi-logout</v-icon>
-              <span>Logout</span> 
+              <span><a href="http://localhost:8080/"><font color="white">Logout</font></a></span> 
             </v-btn>
-
           </v-toolbar>
         </div>
     <!-- <v-app dark class= "mb-1">
@@ -135,10 +133,10 @@
 </template>
 
 <script>
-
 // import axios from 'axios';
 export default {
   name: 'Nav',
+  // props: ['user'],
   data() {
     return {
       rail: true,
@@ -146,6 +144,11 @@ export default {
       mini: false,
       right: null , 
       items: [
+        {
+          icon: 'mdi-account-card-outline',
+          title: 'Personal',
+          to: '/personal',
+        },
         {
           icon: 'mdi-bank-transfer',
           title: 'DepositWithdraw',
@@ -156,13 +159,34 @@ export default {
           title: 'Transaction',
           to: '/transaction',
         },
+        // {
+        //   icon: 'mdi-account-card-outline',
+        //   title: 'Personal',
+        //   to: '/personal'
+        // }
       ],
     }
   },
   method:{
     handleClick(){
-      localStorage.removeItem('token');
-      this.$router.push('/')
+      
+      // axios.get('https://one.th/api/oauth/logout?redirect_url=/')
+      // .then(res=>{
+            // this.$cookie.set('token',res.data.token);
+            // localStorage.setItem('token',res.data.access_token)
+            // console.log(res)
+            // alert("ล็อกเอ้าท์สำเร็จ")
+            // localStorage.removeItem('token');
+            // this.$router.push('/')
+            // console.log(res)
+            // this.$router.push('/depositwithdraw');
+          // })
+          // .catch(error =>{
+          //   console.log(error);
+          //   alert("ล็อกเอ้าท์ไม่สำเร็จ")
+          // });
+        
+
     },
     toggle (index) {
         const i = this.selected.indexOf(index)

@@ -4,6 +4,9 @@
     <!-- <div class=""> -->
       <!-- <h3>Welcome,{{ user.first_name_th }} </h3> -->
       <Nav></Nav>
+      <div class="container"> 
+        <h3>Welcome,{{ user.first_name_th }} </h3>
+      </div>
       <TestDeposit class="container mt-16"></TestDeposit> 
       <!-- <router-link to="/">Go to Home</router-link> -->
       <!-- <router-link to="/transaction">Go to Transaction</router-link> -->
@@ -23,7 +26,7 @@
 <script>
 import TestDeposit from '../components/TestDeposit.vue';
 import Nav from '../components/Nav.vue';
-// import axios from 'axios';
+import axios from 'axios';
   export default{
     name: 'DepositWithdraw',
     // props: ['user'],
@@ -31,23 +34,23 @@ import Nav from '../components/Nav.vue';
       TestDeposit,
       Nav,
     },
-    // created() {
-    //   axios.get('https://one.th/api/account',{
-    //     headers:{
-    //       Authorization: 'Bearer ' + localStorage.getItem('token')
-    //     }
-    //   })
-    //   .then(res =>{
-    //     console.log(res)
-    //     this.user = res.data
-    //   })
-    //   .catch(error =>{
-    //     console.log(error)
-    //   })
-    // },
+    created() {
+      axios.get('https://one.th/api/account',{
+        headers:{
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      .then(res =>{
+        console.log(res)
+        this.user = res.data
+      })
+      .catch(error =>{
+        console.log(error)
+      })
+    },
     data(){
       return{
-        // user:null,
+        user:null,
       }
     }
   }

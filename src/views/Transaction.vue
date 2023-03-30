@@ -3,6 +3,9 @@
     <v-app>
       <!-- <h3>Welcome,{{ user.first_name_th }} </h3> -->
       <Nav></Nav>
+      <!-- <div class="container"> -->
+        <!-- <p>{{ user.first_name_th }}</p> -->
+      <!-- </div> -->
       <TestTransaction></TestTransaction>
         <!-- <Nav></Nav> -->
         
@@ -25,9 +28,9 @@ export default {
     },
 
     data(){
-        return {
+      return {
 
-        }
+      }
     }
 
 }
