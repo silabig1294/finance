@@ -5,7 +5,7 @@
       <!-- <h3>Welcome,{{ user.first_name_th }} </h3> -->
       <Nav></Nav>
       <div class="container"> 
-        <h3>Welcome,{{ user.first_name_th }} </h3>
+        <h3 style="color:orange;">Welcome,{{ user.first_name_th }} </h3>
       </div>
       <TestDeposit class="container mt-16"></TestDeposit> 
       <!-- <router-link to="/">Go to Home</router-link> -->
@@ -64,3 +64,4 @@ import axios from 'axios';
   align-items: center;
 }
 </style>
+

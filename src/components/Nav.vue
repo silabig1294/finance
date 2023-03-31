@@ -169,12 +169,15 @@ export default {
   },
   method:{
     handleClick(){
+      // window.location.origin
       
-      // axios.get('https://one.th/api/oauth/logout?redirect_url=/')
+      // axios.get('https://one.th/api/oauth/logout?redirect_url=http://localhost:8080/')
       // .then(res=>{
             // this.$cookie.set('token',res.data.token);
-            // localStorage.setItem('token',res.data.access_token)
+            // localStorage.clear();
+            // window.localStorage.clear(); 
             // console.log(res)
+            // window.localStorage.clear(); 
             // alert("ล็อกเอ้าท์สำเร็จ")
             // localStorage.removeItem('token');
             // this.$router.push('/')

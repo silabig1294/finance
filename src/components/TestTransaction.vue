@@ -1,27 +1,36 @@
 <template lang="html">
   <div id="testtransaction">
     <div class="container mt-16"> 
-    <span style="color: blue; font-size:14px;"><strong>ประวัติรายการฝากถอน</strong></span>
+    <span style="color: blue; font-size:14px;"><strong>ประวัติรายการฝาก-ถอน</strong></span>
     <br>
     </div>
-    <div class="container">
+    <div class="container mb-16">
     <v-data-table
     :headers="headers"
     :items="transaction"
     :items-per-page="5"
-    class="elevation-5"
+    class="elevation-6"
     >
+    <template v-slot:item.status="{item}">
+      <v-chip 
+      small
+      class="font-weight-bold"
+      text-color="white"
+      :color="item.status==='ถอน'?'red':item.status==='ฝาก'?'blue':'orange'"
+      >{{item.status}}
+      </v-chip>
 
+    </template>
     <template v-slot:[`item.action`] ="item">
- 
         <v-dialog
           v-model="dialog"
           width="500">
         <template v-slot:activator="{ on }">
-        <v-btn small class="mr-1" color="success" 
-         v-on="on" @click="editItem(item)"><v-icon>
+          <v-btn small class="mr-1" color="success" 
+          v-on="on" @click="editItem(item)"><v-icon>
             mdi-pencil
-        </v-icon></v-btn></template>
+            </v-icon></v-btn>
+        </template>
         <v-card>
         <v-card-title class="text-h5 grey lighten-2">
           <span class="headline"><strong>แก้ไขจำนวนเงินฝาก</strong></span>
@@ -29,7 +38,7 @@
 
         <v-card-text>
           <strong>ของวันที่ {{editedItem.item.time}}</strong> <br>
-          <strong>จากอีเมล</strong> silabig1442@gmail.com<br>
+          <strong>จากอีเมล</strong>silabig1442@gmail.com<br>
           <!-- <span style="color: red; font-size:11px"><strong>จำนวนเงิน *</strong></span> -->
           <!-- <span style="color: red; font-size:11px"><strong>ID</strong></span> -->
           <!-- <input :v-model="editItem.id"  type="text" @keypress="isNum($event)" minlength="1" maxlength="6"> -->
@@ -45,10 +54,9 @@
         </v-card-actions>
       </v-card>
         </v-dialog>
-        <v-btn small color="red" @click="deleteItem(item)"><v-icon color="white">
-            mdi-trash-can-outline
-        </v-icon></v-btn>
-
+        <v-btn small color="red" @click="deleteItem(item)">
+          <v-icon color="white">mdi-trash-can-outline</v-icon>
+        </v-btn>
     </template>
     
     </v-data-table>
@@ -203,6 +211,13 @@ export default {
 </script>
 
 <style>
+#chips-container .v-chip.ฝาก {
+  color: #3cd1c2;
+}
+#chips-container .v-chip.ถอน {
+  /* background: #ffaa2c; */
+  color: red;  
+}
 .container{
   display: flex;
   justify-content: center;

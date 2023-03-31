@@ -3,11 +3,15 @@
         <Nav></Nav>
         <v-container class="container mt-15" fluid>
           <v-card max-width="450px" class="mx-auto bg" elevation="2">
+            
             <v-img class="" height="200px" src="http://unblast.com/wp-content/uploads/2021/09/Real-Estate-Agent-Illustration.jpg" gradient="150deg, rgb(185 224 255 / 58%) 0%, rgb(243 220 246 / 52%) 35%, rgb(223 255 242 / 74%) 74%">
+              <br>
+              <br>
+              <p style="color: blue;text-shadow: 2px 2px white;"><strong>&emsp;&nbsp; Account_ID: {{ user.id }} </strong></p>
             </v-img>
             <v-row justify="center">
               <v-col align-self="start" class="d-flex justify-center align-center pa-0" cols="12">
-                <v-avatar class="profile avatar-center-heigth avatar-shadow" color="grey" size="164">
+                <v-avatar class="profile avatar-center-heigth avatar-shadow" color="blue" size="164">
                   <v-btn @click="onButtonClick" class="upload-btn" x-large icon>
                     <v-icon>
                       mdi-camera
@@ -21,23 +25,25 @@
                 <v-list-item color="#0000" class="profile-text-name ma-4 pt-16">
                   <v-list-item-content>
                     <v-list-item-title class="text-h6">
-                      {{user.first_name_eng}} (Big) {{ user.last_name_eng}}
+                      <!-- Account_ID: {{ user.id }}<br>
+                      <br> -->
+                      Mr.{{user.first_name_eng}} (Big) {{ user.last_name_eng}}
                     </v-list-item-title>
                     <v-list-item-subtitle>Electronic&Computer System Engineer</v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-action>
-                    <v-btn class="mx-2" fab dark color="indigo" small>
+                    <!-- <v-btn class="mx-2" fab dark color="indigo" small>
                       <v-icon dark>
                         mdi-plus
                       </v-icon>
-                    </v-btn>
+                    </v-btn> -->
                   </v-list-item-action>
                 </v-list-item>
  
                 <v-card-subtitle>
                   <b class="ml-2">Bio</b>
                   <v-btn v-on:click="saveBio" icon>
-                    <v-icon small>mdi-pencil</v-icon>
+                    <v-icon small>{{bioIcon}}</v-icon>
                   </v-btn>
                 </v-card-subtitle>
 
@@ -99,11 +105,34 @@ export default {
             user:null,
             Bio: "Imagination more important than Knowledge",
             Phone: "0636198875",
-
+            editBio: false,
+            bioIcon:'mdi-pencil',
         }
     },
     components:{
         Nav,
+    },
+    methods:{
+      saveBio() {
+      this.editBio = !this.editBio;
+      this.bioIcon = 'mdi-content-save'
+      if (!this.editBio) {
+        this.bioIcon = 'mdi-pencil'
+        alert("Edit Success");
+      }
+    },
+    onButtonClick(){
+      this.isSelecting = true;
+      window.addEventListener(
+        "focus",
+        () => {
+          this.isSelecting = false;
+        },
+        { once: true }
+      );
+
+      this.$refs.uploader.click();
+    }
     }
 
 }
