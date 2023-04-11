@@ -1,6 +1,6 @@
 <template lang="html">
   <!-- <div id="testdeposit"> -->
-  <div class="container"> 
+  <div class="container" > 
     <!-- d-flex align-center flex-column container mt-10 ml-10 mb-10 mr-10 -->
     <v-card width="450">
       <v-card-item>
@@ -10,10 +10,9 @@
       </v-card-item>
       <v-card-text>
         <span style="color: red; font-size:11px" placeholder="กรอก 1-100000">*กรุณากรอกจำนวนเงินที่ต้องการ ฝาก หรือ ถอน (กรอก 0-100000)</span>
-        <input v-model="number" type="text" @keypress="isNum($event)" minlength="1" maxlength="6">
+        <input v-model="number" type="text" @keypress="isNum($event)" @click.right.prevent @paste.prevent minlength="1" maxlength="6">
+        <!-- @click.right.prevent @keydown="keydown" @copy.prevent @paste.prevent -->
       </v-card-text>
-
-
       <v-card-text class="text-center">
          <button class="button" @click="addnum" >ฝาก</button>         <!-- <button style="color: red; @clic>sub</button> -->
          <button class="button1" @click="sub" >ถอน</button> 
@@ -76,6 +75,7 @@ export default {
 
     mounted(){
       this.getTotalAmount();
+      // this.disableCopy();
       setInterval(()=>{
         this.getTotalAmount();
         this.getId();
@@ -85,6 +85,11 @@ export default {
         isNum(e) {
         const num = String.fromCharCode(e.keyCode);
         if (/^[0-9]*$/.test(num)) return true;
+        if (/^[.]+$/.test(num)) return true;
+        if ((e.ctrlKey || e.metaKey) && (e.keyCode === 91 || e.keyCode === 67)) {
+          return false;
+        }
+        // if (/^[v]+$/.test(num)) return false;
         else e.preventDefault();
         },
         getId(){
@@ -159,7 +164,7 @@ export default {
             else if(this.number <= 100000 && this.number >0 ){
               // this.count = this.count + Number(this.number);
               this.id = Math.floor(Math.random() * 1000);
-              this.time = moment(Date()).format('MM/DD/YYYY hh:mm:ss')
+              this.time = moment(Date()).format('MM/DD/YYYY HH:mm:ss')
               axios.post('http://127.0.0.1:3000/transactions',{
                  id: this.id,
                  time: this.time, // use module date
@@ -175,12 +180,15 @@ export default {
                  amount: res.data.amount,
                  status: "ฝาก",
                  mail: "silabig1442@gmail.com"}
-                 this.socket.send(JSON.stringify(message));
+                  // setInterval(()=>{
+                      this.socket.send(JSON.stringify(message));
+                  // },5000);
+                //  this.socket.send(JSON.stringify(message));
                 // Clear the input field
                 this.newMessage = '';
                 this.socket.close();
                 window.location.reload();
-                window.location.reload();
+                // window.location.reload();
                 })
                 .catch(error => {
                     console.log(error)
@@ -190,8 +198,39 @@ export default {
               this.number = null;
             }
             this.number = null;
+            // window.location.reload()
           } 
         },
+        // disableCopy() {
+        // window.addEventListener("keydown", function (event) {
+          // Prevent F5 key from refreshing the page
+          // if (event.keyCode === 116) {
+          //   event.preventDefault();
+          // }
+          // if (event.ctrlKey && (event.which === 82) ){
+          //   event.preventDefault();
+          // }
+          // if (event.keyCode === 17 && event.keyCode === 86 ){
+            // event.preventDefault();
+          // }
+          // if (event.keyCode === 17 && event.keyCode === 118 ){
+            // event.preventDefault();
+          // }
+          // if (event.keyCode === 168 ){
+          //   event.preventDefault();
+          // }
+          // if (event.keyCode === 163){
+          //   event.preventDefault();
+          // }
+          // if (event.keyCode === 17 && event.keyCode === 82){
+          //   event.preventDefault();
+          // }
+        // });
+        // window.addEventListener("beforeunload", function (event) {
+          // Prevent browser refresh from refreshing the page
+          // event.preventDefault();
+        // });
+      // },
         sub(){
             let text = "ยืนยันการถอนเงิน ได้สูงสุดไม่เกิน 100000"
             if (confirm(text) == true) {
@@ -202,7 +241,7 @@ export default {
               }
               else if(this.number <= 100000 && this.number > 0){
                 this.id = Math.floor(Math.random() * 1000);
-                this.time = moment(Date()).format('MM/DD/YYYY hh:mm:ss')
+                this.time = moment(Date()).format('MM/DD/YYYY HH:mm:ss')
                 axios.post('http://127.0.0.1:3000/transactions',{
                  id: this.id,
                  time: this.time, // use module date

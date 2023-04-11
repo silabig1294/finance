@@ -107,10 +107,7 @@ export default {
           { text: 'Status', value: 'status' },
           { text: 'Email', value:'mail'},
           { text: 'Action', value:'action',sortable: false, }
-        ],
-
- 
-     
+        ], 
       }
     },
     created() {
@@ -188,7 +185,6 @@ export default {
               }).catch(error => {
               console.log(error);
               alert("ลบไม่สำเร็จ")
-
           })
               
             }

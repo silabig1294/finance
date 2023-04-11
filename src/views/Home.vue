@@ -1,10 +1,10 @@
 <template>
-  <div class="container"  v-bind:style="{ backgroundColor: color}">
+  <div class="container mt-16 mb-16" >
     <!-- <div id="container" > -->
     <v-container v-bind:style="{ backgroundColor: color}">
       <v-layout row wrap>
         <v-flex xs12 md6>
-          <div class="container mt-10">
+          <div class="container mt-16">
           <v-img
           alt="Home"
           class="shrink"
@@ -14,15 +14,17 @@
           width="2000"
           height="500"
           />
-      </div>
+          </div>
         </v-flex>
-        <!-- <div class="container ma-15"> -->
+        <!-- <div class="container"> -->
         <v-flex xs12 md6>
           <br>
           <br>
           <br>
+          <br>
+          <div class="mr-16 ml-16">
           <h1>Please LogIn</h1>
-                <div class="container mr-10">
+                <div class="container mr-16">
                 <v-tabs v-model="tab" show-arrows background-color="deep-orange accent-4" icons-and-text dark grow>
                     <v-tabs-slider color="orange darken-4"></v-tabs-slider>
                     <v-tab v-for="i in tabs" :key="i">
@@ -62,7 +64,7 @@
                     <v-tab-item>
                         <v-card class="px-4">
                             <v-card-text>
-                              <div v-bind:style="{ backgroundColor: color}">
+                              <div class="container mt-16" v-bind:style="{ backgroundColor: color}">
                                 <h1>Your Theme Color</h1>
                                 <div class="color">
                                 <!-- <input type="text" v-bind:style="{ color: color}" v-model="color" maxlength="7" placeholder="#000000"/> -->
@@ -74,6 +76,8 @@
                     </v-tab-item>
                 </v-tabs>
               </div>
+
+            </div>
         </v-flex>
       <!-- </div> -->
 
@@ -166,10 +170,9 @@ export default {
           });
     }
   }
-
 }
-</script>
 
+</script>
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Proza+Libre|Fira+Mono');
 
@@ -177,6 +180,10 @@ export default {
   height: 100%;
   margin: 0;
   padding: 0;
+} */
+/* .container{
+  display: grid;
+  place-items: center;
 } */
 
 #a {

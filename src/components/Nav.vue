@@ -49,11 +49,6 @@
       </v-list-item>
     </v-list>
   </v-navigation-drawer> 
-    
-    
-    
-    
-        
          <v-toolbar dark pb-4 color="primary">
              <v-btn
               icon
@@ -67,10 +62,10 @@
             <v-spacer></v-spacer>
 
             
-            <v-btn text> 
+            <v-btn @click="handleClick" text> 
               <!-- ทำชั่วคราวก่อน -->
               <v-icon>mdi-logout</v-icon>
-              <span><a href="http://localhost:8080/"><font color="white">Logout</font></a></span> 
+              <span><font color="white">Logout</font></span> 
             </v-btn>
           </v-toolbar>
         </div>
@@ -167,7 +162,7 @@ export default {
       ],
     }
   },
-  method:{
+  methods:{
     handleClick(){
       // window.location.origin
       
@@ -179,8 +174,9 @@ export default {
             // console.log(res)
             // window.localStorage.clear(); 
             // alert("ล็อกเอ้าท์สำเร็จ")
-            // localStorage.removeItem('token');
-            // this.$router.push('/')
+            localStorage.removeItem('token');
+            console.log("access")
+            this.$router.push('/')
             // console.log(res)
             // this.$router.push('/depositwithdraw');
           // })
